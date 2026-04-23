@@ -105,6 +105,19 @@ Current shortcut commands include:
 - **Alt + H** → open full history page
 - **Alt + Y** → toggle tracking
 - **Alt + K** → open quick paste modal
+  
+
+##  Screenshots
+
+
+| Section       |  Extension Image|
+|--------------|------------|
+| Extension| ![Extension](final_result/Extension.png) |
+| Popup UI | ![Popup](final_result/Popup_window.png) |
+| History Page   | ![History](final_result/History_page.png) |
+| Quick Paste   | ![Quick](final_result/Quick_Paste.png) |
+| SignUp| ![SignUp](final_result/Signup.png) |
+| Login   | ![Login](final_result/Login.png) | 
 
 
 ## Project structure
