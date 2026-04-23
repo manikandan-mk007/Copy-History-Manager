@@ -11,7 +11,7 @@ const DEFAULT_SETTINGS = {
   trackingEnabled: true,
   ignoreDuplicates: true,
   cloudSyncEnabled: false,
-  backendUrl: "http://127.0.0.1:8000",
+  backendUrl: "https://copy-history-manager.onrender.com",
   blockedDomains: [],
   theme: "dark"
 };
