@@ -1,0 +1,81 @@
+{
+  "manifest_version": 3,
+  "name": "Copy History Manager",
+  "version": "2.3.0",
+  "description": "Save copied text locally and optionally sync to cloud after login.",
+  "permissions": [
+    "storage",
+    "tabs",
+    "activeTab",
+    "notifications",
+    "windows"
+  ],
+  "host_permissions": [
+    "<all_urls>",
+    "http://127.0.0.1:8000/*",
+    "http://localhost:8000/*",
+    "https://your-render-backend.onrender.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "Copy History Manager",
+    "default_popup": "popup/popup.html"
+  },
+  "options_page": "options/options.html",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["modal/quickPasteModal.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "modal/quickPasteModal.js",
+        "modal/quickPasteModal.css",
+        "utils/interceptor.js"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "commands": {
+    "open_popup_window": {
+      "suggested_key": {
+        "default": "Alt+O",
+        "mac": "Command+Shift+O"
+      },
+      "description": "Open popup window (Alt+O)"
+    },
+    "open_history_page": {
+      "suggested_key": {
+        "default": "Alt+H",
+        "mac": "Command+Shift+H"
+      },
+      "description": "Open full history page (Alt+H)"
+    },
+    "toggle_tracking": {
+      "suggested_key": {
+        "default": "Alt+Y",
+        "mac": "Command+Shift+Y"
+      },
+      "description": "Toggle copy tracking (Alt+Y)"
+    },
+    "open_quick_paste_modal": {
+      "suggested_key": {
+        "default": "Alt+K",
+        "mac": "Command+Shift+K"
+      },
+      "description": "Open quick paste modal (Alt+K)"
+    }
+  }
+}

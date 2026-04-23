@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Copy History Manager</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Clipboard Power Tool</p>
+        <h1>Copy History Manager</h1>
+        <p class="subtitle">Find, pin, and instantly recopy your saved clipboard history.</p>
+      </div>
+      <button id="openHistoryPage" class="ghost-btn">Full Page</button>
+    </header>
+
+    <section class="auth-strip">
+      <span id="authStatus">Checking account...</span>
+      <div class="auth-actions">
+        <button id="authBtn" class="ghost-btn">Login / Signup</button>
+        <button id="logoutBtn" class="danger-btn hidden">Logout</button>
+      </div>
+    </section>
+
+    <section class="toolbar-card">
+      <input type="text" id="searchInput" placeholder="Search copied text..." />
+      <button id="clearAllBtn" class="danger-btn">Clear All</button>
+    </section>
+
+    <section class="info-row">
+      <span id="statusText">Loading...</span>
+      <span class="shortcut-hint">Quick paste: Alt+K</span>
+    </section>
+
+    <section id="historyList" class="history-list"></section>
+  </div>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

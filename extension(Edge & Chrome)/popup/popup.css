@@ -1,0 +1,343 @@
+/* ─── Purple Palette ───────────────────────────────────────────────
+   #F2EAF7  lavender mist  (lightest)
+   #C59DD9  soft violet
+   #7A3F91  rich purple
+   #2B0D3E  deep plum      (darkest)
+   ─────────────────────────────────────────────────────────────────── */
+
+:root {
+  --clr-lavender:  #F2EAF7;
+  --clr-violet:    #C59DD9;
+  --clr-purple:    #7A3F91;
+  --clr-plum:      #2B0D3E;
+
+  /* derived tints / alphas */
+  --glass-light:   rgba(242, 234, 247, 0.06);
+  --glass-mid:     rgba(197, 157, 217, 0.10);
+  --border-subtle: rgba(197, 157, 217, 0.14);
+  --border-bright: rgba(197, 157, 217, 0.28);
+
+  --text-primary:  #F2EAF7;
+  --text-muted:    #C59DD9;
+  --text-dim:      rgba(197, 157, 217, 0.65);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  width: 430px;
+  min-height: 580px;
+  margin: 0;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  background:
+    radial-gradient(ellipse at top right,  rgba(122, 63, 145, 0.35) 0%, transparent 55%),
+    radial-gradient(ellipse at bottom left, rgba(43, 13, 62, 0.80)  0%, transparent 70%),
+    linear-gradient(160deg, #1a0728 0%, #2B0D3E 100%);
+  color: var(--text-primary);
+}
+
+.app-shell {
+  padding: 16px;
+}
+
+/* ── Hero ─────────────────────────────────────────────────────────── */
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.eyebrow {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--clr-violet);
+  margin: 0 0 8px;
+  opacity: 0.85;
+}
+
+.hero h1 {
+  font-size: 22px;
+  line-height: 1.15;
+  margin: 0 0 7px;
+  background: linear-gradient(120deg, var(--clr-lavender) 20%, var(--clr-violet) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.subtitle {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.55;
+  max-width: 270px;
+  font-family: 'Georgia', serif;
+  opacity: 0.85;
+}
+
+/* ── Buttons ──────────────────────────────────────────────────────── */
+.ghost-btn,
+.danger-btn,
+.action-btn {
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  padding: 9px 13px;
+  font-weight: 600;
+  font-family: 'Courier New', monospace;
+  font-size: 11.5px;
+  letter-spacing: 0.02em;
+  transition: background 0.18s, box-shadow 0.18s, transform 0.12s;
+}
+
+.ghost-btn {
+  background: var(--glass-mid);
+  color: var(--clr-lavender);
+  border: 1px solid var(--border-bright);
+}
+.ghost-btn:hover {
+  background: rgba(197, 157, 217, 0.18);
+  box-shadow: 0 0 0 1px var(--clr-violet);
+}
+
+.danger-btn {
+  background: rgba(180, 30, 80, 0.70);
+  color: #ffe4ef;
+  border: 1px solid rgba(220, 60, 100, 0.35);
+}
+.danger-btn:hover {
+  background: rgba(200, 40, 90, 0.85);
+}
+
+/* ── Auth Strip ───────────────────────────────────────────────────── */
+.auth-strip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  padding: 11px 14px;
+  border-radius: 14px;
+  background: var(--glass-light);
+  border: 1px solid var(--border-subtle);
+  font-size: 12px;
+  color: var(--text-muted);
+  font-family: 'Courier New', monospace;
+}
+
+.auth-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.hidden {
+  display: none;
+}
+
+/* ── Toolbar Card ─────────────────────────────────────────────────── */
+.toolbar-card {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+  padding: 12px;
+  border-radius: 16px;
+  background: var(--glass-light);
+  border: 1px solid var(--border-subtle);
+  backdrop-filter: blur(10px);
+}
+
+.toolbar-card input {
+  flex: 1;
+  border: 1px solid var(--border-bright);
+  background: rgba(43, 13, 62, 0.55);
+  color: var(--text-primary);
+  border-radius: 10px;
+  padding: 10px 14px;
+  outline: none;
+  font-family: 'Georgia', serif;
+  font-size: 13px;
+  transition: border-color 0.18s, box-shadow 0.18s;
+}
+
+.toolbar-card input:focus {
+  border-color: var(--clr-violet);
+  box-shadow: 0 0 0 2px rgba(197, 157, 217, 0.18);
+}
+
+.toolbar-card input::placeholder {
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+/* ── Info Row ─────────────────────────────────────────────────────── */
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 12px;
+  color: var(--text-dim);
+  font-size: 11.5px;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.03em;
+}
+
+.shortcut-hint {
+  text-align: right;
+  background: rgba(122, 63, 145, 0.22);
+  border: 1px solid rgba(122, 63, 145, 0.35);
+  border-radius: 6px;
+  padding: 3px 8px;
+  color: var(--clr-violet);
+}
+
+/* ── History List & Cards ─────────────────────────────────────────── */
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.history-card {
+  background: linear-gradient(
+    160deg,
+    rgba(122, 63, 145, 0.12),
+    rgba(43, 13, 62, 0.55)
+  );
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 13px;
+  box-shadow:
+    0 4px 18px rgba(43, 13, 62, 0.45),
+    inset 0 1px 0 rgba(242, 234, 247, 0.05);
+  transition: border-color 0.18s, box-shadow 0.18s;
+}
+
+.history-card:hover {
+  border-color: rgba(197, 157, 217, 0.30);
+  box-shadow:
+    0 6px 24px rgba(43, 13, 62, 0.55),
+    inset 0 1px 0 rgba(242, 234, 247, 0.07);
+}
+
+.history-card.pinned {
+  border-color: rgba(197, 157, 217, 0.40);
+  background: linear-gradient(
+    160deg,
+    rgba(197, 157, 217, 0.13),
+    rgba(43, 13, 62, 0.55)
+  );
+  box-shadow:
+    0 4px 18px rgba(122, 63, 145, 0.30),
+    inset 0 1px 0 rgba(242, 234, 247, 0.08);
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 9px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(122, 63, 145, 0.45);
+  color: var(--clr-lavender);
+  border: 1px solid rgba(197, 157, 217, 0.35);
+  border-radius: 999px;
+  padding: 4px 9px;
+  font-size: 10px;
+  font-weight: 700;
+  font-family: 'Courier New', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.history-card.pinned .badge {
+  background: rgba(197, 157, 217, 0.30);
+  border-color: var(--clr-violet);
+  color: var(--clr-lavender);
+}
+
+.time {
+  font-size: 10.5px;
+  color: var(--text-dim);
+  font-family: 'Courier New', monospace;
+}
+
+.text {
+  font-size: 13.5px;
+  line-height: 1.55;
+  margin-bottom: 7px;
+  color: var(--clr-lavender);
+  word-break: break-word;
+  white-space: pre-wrap;
+  font-family: 'Georgia', serif;
+}
+
+.meta {
+  font-size: 11.5px;
+  color: var(--text-dim);
+  margin-bottom: 11px;
+  font-family: 'Courier New', monospace;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.action-btn {
+  background: var(--glass-mid);
+  color: var(--clr-lavender);
+  border: 1px solid var(--border-subtle);
+  font-size: 11px;
+  padding: 7px 11px;
+}
+
+.action-btn:hover {
+  background: rgba(197, 157, 217, 0.18);
+}
+
+.action-btn.pin {
+  background: rgba(122, 63, 145, 0.25);
+  border-color: rgba(197, 157, 217, 0.30);
+  color: var(--clr-violet);
+}
+
+.action-btn.pin:hover {
+  background: rgba(122, 63, 145, 0.40);
+}
+
+.action-btn.delete {
+  background: rgba(160, 20, 60, 0.25);
+  border-color: rgba(220, 60, 100, 0.25);
+  color: #f9b8cf;
+}
+
+.action-btn.delete:hover {
+  background: rgba(180, 30, 70, 0.40);
+}
+
+/* ── Empty State ──────────────────────────────────────────────────── */
+.empty {
+  text-align: center;
+  padding: 40px 12px;
+  color: var(--text-dim);
+  border: 1px dashed rgba(197, 157, 217, 0.22);
+  border-radius: 16px;
+  font-family: 'Georgia', serif;
+  font-style: italic;
+  font-size: 13px;
+}

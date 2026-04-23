@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Copy History Settings</title>
+  <link rel="stylesheet" href="options.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <div class="settings-shell">
+    <div class="settings-card">
+      <div class="card-glow"></div>
+
+      <div class="brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <p class="eyebrow">Extension Preferences</p>
+      </div>
+
+      <h1>Copy History Settings</h1>
+      <p class="subtext">Configure local storage behavior, cloud sync backend URL, and blocked domains.</p>
+
+      <div class="section-divider">
+        <span>Storage</span>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Maximum Items</label>
+          <input type="number" id="maxItems" min="1" max="100" placeholder="50" />
+        </div>
+      </div>
+
+      <div class="toggle-group">
+        <div class="toggle-item">
+          <div class="toggle-label">
+            <span>Enable Tracking</span>
+            <p>Record copied text to your local history</p>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="trackingEnabled" />
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="toggle-item">
+          <div class="toggle-label">
+            <span>Ignore Duplicates</span>
+            <p>Skip saving items already in history</p>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="ignoreDuplicates" />
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="section-divider">
+        <span>Cloud Sync</span>
+      </div>
+
+      <div class="form-group">
+        <label>Backend URL</label>
+        <input type="text" id="backendUrl" placeholder="http://127.0.0.1:8000" />
+      </div>
+
+      <div class="cloud-note">
+        <svg viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+        </svg>
+        Login or signup from the popup to enable cloud sync.
+      </div>
+
+      <div class="section-divider">
+        <span>Privacy</span>
+      </div>
+
+      <div class="form-group">
+        <label>Blocked Domains <span class="label-hint">comma separated</span></label>
+        <textarea id="blockedDomains" rows="4" placeholder="example.com, bank.com, ..."></textarea>
+      </div>
+
+      <div class="actions">
+        <button id="saveBtn">
+          <svg viewBox="0 0 20 20" fill="currentColor">
+            <path d="M7.707 10.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V6h5a2 2 0 012 2v7a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2h5v5.586l-1.293-1.293z"/>
+          </svg>
+          Save Settings
+        </button>
+        <div id="statusMsg"></div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="options.js"></script>
+</body>
+</html>
