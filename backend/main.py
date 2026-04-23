@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Response
 from fastapi.middleware.cors import CORSMiddleware
 
 from database import Base, engine
@@ -29,3 +29,7 @@ app.include_router(settings_router)
 @app.get("/")
 def root():
     return {"message": "Copy History Manager API running"}
+
+@app.head("/")
+def root_head():
+    return Response(status_code=200)
