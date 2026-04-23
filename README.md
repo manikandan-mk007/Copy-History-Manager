@@ -1,8 +1,64 @@
+<div align="center">
+
 # Copy History Manager
 
-Copy History Manager is a browser extension for **Chrome and Microsoft Edge** that automatically saves copied text, keeps a searchable local history, and optionally syncs that history to the cloud after user login.
+### A browser extension for Chrome & Microsoft Edge that automatically saves your clipboard history — locally and in the cloud.
 
-It is built with:
+**[Live Backend API](https://copy-history-manager.onrender.com)** · **[API Docs](https://copy-history-manager.onrender.com/docs)** · **[Privacy Policy](https://github.com/manikandan-mk007/Copy-History-Manager/blob/main/PRIVACY_POLICY.md)** · **[License](https://github.com/manikandan-mk007/Copy-History-Manager/blob/main/LICENSE)**
+
+</div>
+
+---
+
+## What is Copy History Manager?
+
+Every time you copy something new, your previous clipboard content is gone forever. **Copy History Manager** fixes that.
+
+It is a browser extension for **Chrome and Microsoft Edge** that silently tracks everything you copy — from regular websites and AI tools alike — and stores it in a searchable, persistent local history. Optionally, you can sign in to sync your history to the cloud and restore it across devices.
+
+
+
+## Features at a Glance
+
+| Feature | Description |
+|---|---|
+|  **Auto Copy Tracking** | Captures text on every copy action automatically |
+|  **AI Site Support** | Intercepts programmatic clipboard writes from ChatGPT, Gemini, Claude, Perplexity, Grok, and more |
+|  **Local Storage** | All data stored locally via `chrome.storage.local` — works fully offline |
+|  **Cloud Sync** | Sign in to back up and restore history across multiple devices |
+|  **Search & Filter** | Search by copied text, page title, or source URL |
+|  **Pin Items** | Pin important entries so they always stay at the top |
+|  **Duplicate Handling** | Detects duplicates, increments copy count, and refreshes timestamp instead of creating new entries |
+|  **Quick Paste Modal** | Open a floating paste panel inside any page with a keyboard shortcut |
+|  **Export History** | Download your full clipboard history as a JSON file |
+|  **Configurable Settings** | Control storage limits, blocked domains, duplicate handling, and more |
+
+
+
+##  Screenshots
+
+| View | Preview |
+|---|---|
+| Extension Icon | ![Extension](final_result/Extension.png) |
+| Popup UI | ![Popup](final_result/Popup_window.png) |
+| History Page | ![History](final_result/History_page.png) |
+| Quick Paste Modal | ![Quick Paste](final_result/Quick_Paste.png) |
+| Sign Up | ![SignUp](final_result/Signup.png) |
+| Login | ![Login](final_result/Login.png) |
+
+
+
+## Keyboard shortcuts
+Current shortcut commands include:
+
+- **Alt + O** → open popup window
+- **Alt + H** → open full history page
+- **Alt + Y** → toggle tracking
+- **Alt + K** → open quick paste modal
+
+
+
+## Tech Stack
 
 - **Extension frontend:** JavaScript, HTML, CSS, Manifest V3
 - **Backend API:** FastAPI
@@ -10,117 +66,8 @@ It is built with:
 - **Authentication:** JWT-based login and signup
 
 
-## Project overview
 
-This project solves a common problem: copied text gets lost after the next copy action.
-
-The extension continuously tracks copied text from normal websites and also from AI tools that use programmatic clipboard APIs. Users can:
-
-- save copied text automatically
-- search copy history
-- pin important items
-- delete items
-- export history as JSON
-- open a full history page
-- use a quick paste modal inside the current tab
-- log in to sync data across devices
-
-
-## Main features
-
-### 1. Automatic copy tracking
-The extension listens for standard browser copy events and stores copied text with metadata such as:
-
-- copied text
-- source page URL
-- source page title
-- created time
-- updated time
-- pin status
-- copy count
-
-### 2. AI website copy support
-Some AI websites do not trigger only normal selection copy. They use `navigator.clipboard.writeText()` or `document.execCommand('copy')`.
-
-To support this, the extension injects an interceptor script into the page context and listens for clipboard writes from websites like:
-
-- ChatGPT
-- Gemini
-- Claude
-- Perplexity
-- Copilot
-- Grok
-- other AI sites using programmatic copy buttons
-
-### 3. Local history storage
-All copied items are saved locally using `chrome.storage.local`.
-
-This gives users:
-
-- instant access
-- offline usage
-- persistent local history even after browser restart
-
-### 4. Duplicate handling
-If duplicate tracking is enabled, copied text that already exists is not stored as a separate new item. Instead, the existing item is updated:
-
-- moved to the top
-- copy count increased
-- updated timestamp refreshed
-
-### 5. Pinned items
-Users can pin important history items. Pinned items stay at the top of the list.
-
-### 6. Search and filter
-The popup and full history page allow users to search by:
-
-- copied text
-- page title
-- page URL
-
-### 7. Quick paste modal
-A centered quick paste modal can be opened on the current page using a keyboard shortcut. It shows recent items and lets the user quickly copy them again.
-
-### 8. Authentication and cloud sync
-Users can sign up and log in through the extension. After login:
-
-- local history can be pushed to the backend
-- cloud history can be pulled back to the current browser
-- local and cloud history are merged
-- users can restore history on another device
-
-### 9. Settings support
-The options page allows users to manage:
-
-- maximum stored items
-- tracking enabled/disabled
-- duplicate handling
-- backend URL
-- blocked domains
-
-### 10. Keyboard shortcuts
-Current shortcut commands include:
-
-- **Alt + O** → open popup window
-- **Alt + H** → open full history page
-- **Alt + Y** → toggle tracking
-- **Alt + K** → open quick paste modal
-  
-
-##  Screenshots
-
-
-| Section       |  Extension Image|
-|--------------|------------|
-| Extension| ![Extension](final_result/Extension.png) |
-| Popup UI | ![Popup](final_result/Popup_window.png) |
-| History Page   | ![History](final_result/History_page.png) |
-| Quick Paste   | ![Quick](final_result/Quick_Paste.png) |
-| SignUp| ![SignUp](final_result/Signup.png) |
-| Login   | ![Login](final_result/Login.png) | 
-
-
-## Project structure
+## Project Structure
 
 ```text
 copy-history-manager/
@@ -152,187 +99,205 @@ copy-history-manager/
 ```
 
 
-## How the extension works
+## How It Works
 
-### Extension flow
+### Extension Flow
 
-#### Step 1: User copies text
-The content script detects copied text in two ways:
+```
+User copies text
+      │
+      ▼
+Content script detects copy event
+(standard copy OR intercepted programmatic clipboard write)
+      │
+      ▼
+Message sent to background.js
+(text + source URL + page title)
+      │
+      ▼
+Background script validates
+(tracking enabled? domain blocked? duplicate?)
+      │
+      ▼
+Item saved to chrome.storage.local
+      │
+      ▼
+Popup / History Page reads and renders items
+      │
+      ▼
+(If logged in) Sync to cloud backend
+```
 
-- normal `copy` event
-- programmatic clipboard writes captured through injected interceptor script
+### Cloud Sync Flow
 
-#### Step 2: Content script sends message to background
-The copied text is sent to `background.js` with:
-
-- text
-- current page URL
-- current page title
-
-#### Step 3: Background validates and stores
-The background script:
-
-- checks whether tracking is enabled
-- checks whether the domain is blocked
-- creates a history item
-- updates local history in storage
-- optionally syncs to cloud if login exists
-
-#### Step 4: Popup and history page read local history
-The popup and history page request stored items from the background script and render them in the UI.
-
-#### Step 5: Cloud sync workflow
-When a user signs up or logs in:
-
-- backend returns JWT token
-- token is stored in local extension auth storage
-- local items are pushed to cloud
-- cloud items are fetched back
-- both histories are merged locally
-
-This supports multi-device restore.
-
-
-## Backend API flow
-
-### Auth routes
-Base path: `/api/auth`
-
-- `POST /register` → create new user and return JWT
-- `POST /login` → authenticate user and return JWT
-
-### History routes
-Base path: `/api/history`
-
-- `POST /save` → save one item to cloud
-- `POST /import` → bulk import all items
-- `GET /` → list cloud history for logged-in user
-
-### Settings routes
-Base path: `/api/settings`
-
-- `GET /` → fetch user settings
-- `POST /` → save user settings
+```
+User signs up / logs in
+      │
+      ▼
+Backend returns JWT token
+      │
+      ▼
+Token stored in extension auth storage
+      │
+      ▼
+Local history pushed to cloud
+      │
+      ▼
+Cloud history pulled back
+      │
+      ▼
+Both histories merged locally
+```
 
 
-## Local development setup
+## Backend API Reference
 
-## 1. Backend setup
+**Base URL (Production):** [`https://copy-history-manager.onrender.com`](https://copy-history-manager.onrender.com)
 
-Open terminal in the `backend` folder.
+**Interactive Docs:** [`https://copy-history-manager.onrender.com/docs`](https://copy-history-manager.onrender.com/docs)
 
-### Create virtual environment
+### Auth — `/api/auth`
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `POST` | `/register` | Create a new user and receive JWT |
+| `POST` | `/login` | Authenticate and receive JWT |
+
+### History — `/api/history`
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `POST` | `/save` | Save a single item to the cloud |
+| `POST` | `/import` | Bulk import all local items |
+| `GET` | `/` | Retrieve cloud history for the logged-in user |
+
+### Settings — `/api/settings`
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `GET` | `/` | Fetch user settings |
+| `POST` | `/` | Save user settings |
+
+
+## Local Development Setup
+
+### 1. Backend Setup
+
+Navigate to the `backend` folder and follow the steps below.
+
+**Create and activate a virtual environment:**
 
 ```bash
+# Create
 python -m venv venv
-```
 
-### Activate virtual environment
-
-#### Windows
-
-```bash
+# Activate — Windows
 venv\Scripts\activate
-```
 
-#### Mac/Linux
-
-```bash
+# Activate — Mac/Linux
 source venv/bin/activate
 ```
 
-### Install dependencies
+**Install dependencies:**
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### Run backend
+**Start the development server:**
 
 ```bash
 uvicorn main:app --reload
 ```
 
-Backend default URL:
+The backend will be available at:
 
-```text
+```
 http://127.0.0.1:8000
 ```
 
-Interactive docs:
+API documentation at:
 
-```text
+```
 http://127.0.0.1:8000/docs
 ```
 
 
+### 2. Extension Setup
 
-## 2. Extension setup
-
-1. Open Chrome or Edge
-2. Go to extension management page:
-   - Chrome: `chrome://extensions/`
-   - Edge: `edge://extensions/`
-3. Turn on **Developer mode**
+1. Open **Chrome** or **Microsoft Edge**
+2. Navigate to the extensions management page:
+   - Chrome → `chrome://extensions/`
+   - Edge → `edge://extensions/`
+3. Enable **Developer mode** (toggle in the top right)
 4. Click **Load unpacked**
-5. Select the folder:
+5. Select the folder: `extension(Edge & Chrome)`
+6. Open **Extension Options** and set the backend URL:
 
-```text
-extension(Edge & Chrome)
 ```
-
-6. Open extension options and confirm backend URL is:
-
-```text
 http://127.0.0.1:8000
 ```
 
+> For production use, set the backend URL to: `https://copy-history-manager.onrender.com`
 
-## Usage flow
 
-### Local-only mode
-1. Load the extension
-2. Copy text on any webpage
-3. Open popup or history page
-4. View, search, pin, recopy, or delete items
 
-### Cloud sync mode
+## Usage Guide
+
+### Local-Only Mode
+1. Load the extension into your browser
+2. Copy any text on any webpage
+3. Click the extension icon to open the popup
+4. Browse, search, pin, recopy, or delete items
+
+### Cloud Sync Mode
 1. Open the auth page from the popup
 2. Sign up or log in
-3. Extension stores JWT token
-4. Existing local history is uploaded
-5. Cloud history is restored and merged
-6. Future copied text can sync automatically
+3. Your local history is automatically uploaded
+4. History is merged with any existing cloud data
+5. All future copied items sync in real time
 
-### Full history page
-The full history page supports:
+### Full History Page
+Access via `Alt + H` or the popup button. Supports:
+- Full-text search across all entries
+- Pin / unpin items
+- Delete individual items or clear all
+- Export entire history as JSON
+- Manual cloud sync
 
-- search
-- pin/unpin
-- delete
-- clear all
-- export JSON
-- manual sync
-
-### Quick paste modal
-Use **Alt + K** to open the centered quick paste modal in the active webpage.
+### Quick Paste Modal
+Press `Alt + K` on any page to open a floating modal with your most recent items. Click any item to instantly copy it again.
 
 
+## Contributing
 
-## Current strengths of the project
-
-- real-world useful extension idea
-- clean split between extension and backend
-- supports Chrome and Edge
-- works both offline and with cloud sync
-- supports AI-site copy buttons
-- has popup, history page, options page, and auth page
-- already close to a publishable MVP
+Contributions, issues, and feature requests are welcome. Feel free to open a pull request or issue on the repository.
 
 
 
+##  Privacy
 
-## License
+This extension only stores clipboard data locally on your device by default. Cloud sync is entirely opt-in and requires explicit login. No data is collected or shared without user action.
+
+→ Read the full [Privacy Policy](https://github.com/manikandan-mk007/Copy-History-Manager/blob/main/PRIVACY_POLICY.md)
 
 
 
+##  License
+
+This project is licensed under the terms described in the [LICENSE](https://github.com/manikandan-mk007/Copy-History-Manager/blob/main/LICENSE) file.
+
+
+
+##  Author
+
+**Thangamanikandan I**
+
+[![Gmail](https://img.shields.io/badge/Gmail-thangamanikandan.it%40gmail.com-D14836?style=flat-square&logo=gmail&logoColor=white)](mailto:thangamanikandan.it@gmail.com)
+
+
+<div align="center">
+
+Made with  by Thangamanikandan I
+
+</div>
