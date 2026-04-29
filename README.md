@@ -17,6 +17,11 @@ Every time you copy something new, your previous clipboard content is gone forev
 It is a browser extension for **Chrome and Microsoft Edge** that silently tracks everything you copy — from regular websites and AI tools alike — and stores it in a searchable, persistent local history. Optionally, you can sign in to sync your history to the cloud and restore it across devices.
 
 
+## Microsoft Edge Extension Link
+```base
+https://microsoftedge.microsoft.com/addons/detail/dkkkaogcgdnpnfcijpjldnadjbjjopme
+```
+
 
 ## Features at a Glance
 
